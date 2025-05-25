@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /ad-test
+Disallow: /ad-test/
+
+# Allow all other pages
+User-agent: *
+Allow: /

@@ -1,0 +1,218 @@
+---
+
+---
+
+<div id="consent-banner" class="consent-banner">
+    <div class="consent-content">
+        <h3>We use cookies</h3>
+        <p>
+            This website uses cookies and similar technologies to ensure you get the best experience. We also use
+            cookies for ads personalization and measurement. You can adjust your preferences below.
+        </p>
+        <div class="consent-buttons">
+            <button id="accept-all">Accept all</button>
+            <button id="reject-all">Reject non-essential</button>
+            <button id="customize" class="secondary">Customize</button>
+        </div>
+    </div>
+    <div id="customize-options" class="customize-options hidden">
+        <div class="option">
+            <input type="checkbox" id="essential" checked disabled />
+            <label for="essential">Essential (required)</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="analytics" checked />
+            <label for="analytics">Analytics</label>
+        </div>
+        <div class="option">
+            <input type="checkbox" id="advertising" checked />
+            <label for="advertising">Advertising</label>
+        </div>
+        <div class="consent-buttons">
+            <button id="save-preferences">Save preferences</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Cookie consent management
+    document.addEventListener("DOMContentLoaded", () => {
+        const consentBanner = document.getElementById("consent-banner");
+        const customizeOptions = document.getElementById("customize-options");
+        const acceptAllBtn = document.getElementById("accept-all");
+        const rejectAllBtn = document.getElementById("reject-all");
+        const customizeBtn = document.getElementById("customize");
+        const savePreferencesBtn = document.getElementById("save-preferences");
+
+        // Show banner if consent not previously given
+        if (!localStorage.getItem("adConsentGiven")) {
+            consentBanner.classList.add("visible");
+        }
+
+        // Customize button toggles options
+        customizeBtn.addEventListener("click", () => {
+            customizeOptions.classList.toggle("hidden");
+        });
+
+        // Accept all button
+        acceptAllBtn.addEventListener("click", () => {
+            setConsent({
+                essential: true,
+                analytics: true,
+                advertising: true,
+            });
+            consentBanner.classList.remove("visible");
+            enableGoogleAds();
+        });
+
+        // Reject all button (except essential)
+        rejectAllBtn.addEventListener("click", () => {
+            setConsent({
+                essential: true,
+                analytics: false,
+                advertising: false,
+            });
+            consentBanner.classList.remove("visible");
+        });
+
+        // Save preferences button
+        savePreferencesBtn.addEventListener("click", () => {
+            const analytics = document.getElementById("analytics").checked;
+            const advertising = document.getElementById("advertising").checked;
+
+            setConsent({
+                essential: true,
+                analytics,
+                advertising,
+            });
+
+            consentBanner.classList.remove("visible");
+
+            if (advertising) {
+                enableGoogleAds();
+            }
+        });
+
+        // Helper function to set consent
+        function setConsent(consentOptions) {
+            localStorage.setItem("adConsentGiven", "true");
+            localStorage.setItem("consentOptions", JSON.stringify(consentOptions));
+
+            // Dispatch consent event for Google
+            if (consentOptions.advertising) {
+                if (window.dataLayer) {
+                    window.dataLayer.push({
+                        event: "consent-update",
+                        ad_storage: "granted",
+                        analytics_storage: consentOptions.analytics ? "granted" : "denied",
+                    });
+                }
+            }
+        }
+
+        // Enable Google ads
+        function enableGoogleAds() {
+            // Load Google AdSense script
+            if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
+                const adsScript = document.createElement("script");
+                adsScript.src =
+                    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7606819328826318";
+                adsScript.async = true;
+                adsScript.crossOrigin = "anonymous";
+                document.head.appendChild(adsScript);
+            }
+
+            // Initialize ads
+            setTimeout(() => {
+                try {
+                    if (window.adsbygoogle) {
+                        (window.adsbygoogle = window.adsbygoogle || []).push({});
+                    }
+                } catch (e) {
+                    console.error("AdSense error:", e);
+                }
+            }, 1000);
+        }
+
+        // Check if consent was previously given and ads should be enabled
+        const consentOptions = JSON.parse(localStorage.getItem("consentOptions") || '{"advertising": false}');
+        if (consentOptions.advertising) {
+            enableGoogleAds();
+        }
+    });
+</script>
+
+<style>
+    .consent-banner {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: white;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        padding: 20px;
+        z-index: 9999;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .consent-banner.visible {
+        display: block;
+    }
+
+    .consent-content h3 {
+        margin-top: 0;
+    }
+
+    .consent-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .consent-buttons button {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .consent-buttons button:not(.secondary) {
+        background: #333;
+        color: white;
+        border: 1px solid #222;
+        transition: background 0.2s ease;
+    }
+
+    .consent-buttons button:not(.secondary):hover {
+        background: #555;
+    }
+
+    .consent-buttons button.secondary {
+        background: #e0e0e0;
+        color: #333;
+    }
+
+    .customize-options {
+        margin-top: 15px;
+        border-top: 1px solid #eee;
+        padding-top: 15px;
+    }
+
+    .customize-options.hidden {
+        display: none;
+    }
+
+    .option {
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+    .option input {
+        margin-right: 8px;
+    }
+</style>

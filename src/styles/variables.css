@@ -14,7 +14,7 @@
     --space-2xl: 3rem;
 
     /* Typography */
-    --font-family-base: sans-serif;
+    --font-family-base: "Noto Sans", sans-serif;
     --line-height-base: 1.5;
 
     /* Layout */

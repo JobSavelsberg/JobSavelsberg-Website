@@ -3,14 +3,17 @@ import ThemeIcon from "./ThemeIcon.astro";
 
 // Get the current pathname to determine active page
 const currentPath = Astro.url.pathname;
+// Remove trailing slash for consistent matching
+const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? currentPath.slice(0, -1) : currentPath;
 ---
 
 <header class="nav-container">
     <a class="home" href="/"> Job Savelsberg </a>
     <div class="nav-links">
-        <a class={`photography ${currentPath === "/photography" ? "active" : ""}`} href="/photography">Photography</a>
-        <a class={`music ${currentPath === "/music" ? "active" : ""}`} href="/music">Music</a>
-        <a class={`software ${currentPath === "/software" ? "active" : ""}`} href="/software">Software</a>
+        <a class={`photography ${normalizedPath === "/photography" ? "active" : ""}`} href="/photography">Photography</a
+        >
+        <a class={`music ${normalizedPath === "/music" ? "active" : ""}`} href="/music">Music</a>
+        <a class={`software ${normalizedPath === "/software" ? "active" : ""}`} href="/software">Software</a>
     </div>
     <ThemeIcon />
 </header>
@@ -56,5 +59,23 @@ const currentPath = Astro.url.pathname;
         text-decoration: underline;
         text-underline-offset: 4px;
         text-decoration-thickness: 2px;
+    }
+
+    /* Ensure active state takes precedence on mobile */
+    .nav-links a.active:hover {
+        text-decoration-thickness: 2px;
+    }
+
+    /* Better mobile touch handling */
+    @media (hover: none) and (pointer: coarse) {
+        .nav-links a:hover {
+            opacity: 0.7;
+            text-decoration: none;
+        }
+        .nav-links a.active {
+            opacity: 1;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+        }
     }
 </style>

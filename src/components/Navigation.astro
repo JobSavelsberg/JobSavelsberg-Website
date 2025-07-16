@@ -28,6 +28,12 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
         color: inherit;
     }
 
+    .home.active {
+        text-decoration: underline;
+        text-underline-offset: 4px;
+        text-decoration-thickness: 2px;
+    }
+
     .nav-container {
         display: flex;
         justify-content: space-between;

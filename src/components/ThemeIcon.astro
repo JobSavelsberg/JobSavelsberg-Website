@@ -5,14 +5,7 @@
 <button id="themeToggle">
     <div class="disc-container">
         <div class="rotating-disc">
-            <svg
-                class="sun-icon"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2"></circle>
                 <path d="m12 0.5 0 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                 <path d="m12 22 0 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
@@ -24,19 +17,9 @@
                 <path d="m20.5 3.5-1.5 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
             </svg>
 
-            <svg
-                class="moon-icon"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-            >
-                <path
-                    d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    fill="none"></path>
+            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"
+                ></path>
             </svg>
         </div>
     </div>
@@ -50,7 +33,30 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: none;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    #themeToggle::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: radial-gradient(ellipse 45% 90% at bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+    }
+
+    :global(.dark) #themeToggle::before {
+        background: radial-gradient(ellipse 45% 90% at bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+    }
+
+    #themeToggle:hover::before {
+        opacity: 1;
     }
 
     .disc-container {
@@ -77,9 +83,22 @@
         color: #000;
     }
 
+    .sun-icon circle,
+    .sun-icon path,
+    .moon-icon path {
+        fill: currentColor;
+        fill-opacity: 0;
+        transition: fill-opacity 0.2s ease;
+    }
+
     :global(.dark) .sun-icon,
     :global(.dark) .moon-icon {
         color: #fff;
+    }
+
+    #themeToggle:hover .sun-icon circle,
+    #themeToggle:hover .moon-icon path {
+        fill-opacity: 1;
     }
 
     /* Sun positioned at top of disc (12 o'clock) */

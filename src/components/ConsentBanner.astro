@@ -2,6 +2,14 @@
 
 ---
 
+<!-- Prevent flash by hiding banner immediately if consent already given -->
+<script is:inline>
+    // Hide consent banner immediately if consent was already given
+    if (localStorage.getItem("adConsentGiven")) {
+        document.write("<style>.consent-banner { display: none !important; }</style>");
+    }
+</script>
+
 <div id="consent-banner" class="consent-banner">
     <div class="consent-content">
         <h3>We use cookies</h3>
@@ -34,9 +42,9 @@
     </div>
 </div>
 
-<script>
+<script is:inline>
     // Cookie consent management
-    document.addEventListener("DOMContentLoaded", () => {
+    function initializeConsentBanner() {
         const consentBanner = document.getElementById("consent-banner");
         const customizeOptions = document.getElementById("customize-options");
         const acceptAllBtn = document.getElementById("accept-all");
@@ -139,7 +147,13 @@
         if (consentOptions.advertising) {
             enableGoogleAds();
         }
-    });
+    }
+
+    // Initialize on page load
+    initializeConsentBanner();
+
+    // Re-initialize after each client-side navigation
+    document.addEventListener("astro:page-load", initializeConsentBanner);
 </script>
 
 <style>
@@ -149,27 +163,47 @@
         bottom: 20px;
         left: 20px;
         right: 20px;
-        background: white;
+        background: var(--color-background);
+        color: var(--color-text);
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(128, 128, 128, 0.3);
         border-radius: 8px;
         padding: 20px;
         z-index: 9999;
         max-width: 600px;
         margin: 0 auto;
+        opacity: 0;
+        transform: translateY(20px);
+        transition:
+            opacity 0.3s ease,
+            transform 0.3s ease;
     }
 
     .consent-banner.visible {
         display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Dark theme shadow adjustment */
+    :global(.dark) .consent-banner {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
     }
 
     .consent-content h3 {
         margin-top: 0;
+        color: var(--color-text);
+    }
+
+    .consent-content p {
+        color: var(--color-text);
     }
 
     .consent-buttons {
         display: flex;
         gap: 10px;
         margin-top: 15px;
+        flex-wrap: wrap;
     }
 
     .consent-buttons button {
@@ -178,27 +212,34 @@
         border-radius: 4px;
         cursor: pointer;
         font-weight: bold;
+        transition:
+            background 0.2s ease,
+            opacity 0.2s ease;
     }
 
     .consent-buttons button:not(.secondary) {
-        background: #333;
-        color: white;
-        border: 1px solid #222;
-        transition: background 0.2s ease;
+        background: var(--color-text);
+        color: var(--color-background);
+        border: 1px solid var(--color-text);
     }
 
     .consent-buttons button:not(.secondary):hover {
-        background: #555;
+        opacity: 0.8;
     }
 
     .consent-buttons button.secondary {
-        background: #e0e0e0;
-        color: #333;
+        background: transparent;
+        color: var(--color-text);
+        border: 1px solid rgba(128, 128, 128, 0.5);
+    }
+
+    .consent-buttons button.secondary:hover {
+        background: rgba(128, 128, 128, 0.1);
     }
 
     .customize-options {
         margin-top: 15px;
-        border-top: 1px solid #eee;
+        border-top: 1px solid rgba(128, 128, 128, 0.3);
         padding-top: 15px;
     }
 
@@ -214,5 +255,26 @@
 
     .option input {
         margin-right: 8px;
+    }
+
+    .option label {
+        color: var(--color-text);
+    }
+
+    /* Responsive design for mobile */
+    @media (max-width: 640px) {
+        .consent-banner {
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .consent-buttons {
+            flex-direction: column;
+        }
+
+        .consent-buttons button {
+            width: 100%;
+        }
     }
 </style>

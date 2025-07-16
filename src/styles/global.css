@@ -20,7 +20,7 @@ body {
     box-sizing: border-box;
 }
 
-/* Remove tap highlights and focus outlines on mobile devices */
+/* Remove tap highlights on touch devices while preserving keyboard focus */
 button,
 a,
 input,
@@ -30,17 +30,17 @@ select,
 [role="button"],
 [onclick] {
     -webkit-tap-highlight-color: transparent;
-    outline: none;
 }
 
-button:focus,
-a:focus,
-input:focus,
-textarea:focus,
-select:focus,
-[tabindex]:focus,
-[role="button"]:focus,
-[onclick]:focus {
+/* Remove focus outlines only when not using keyboard navigation */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible),
+[role="button"]:focus:not(:focus-visible),
+[onclick]:focus:not(:focus-visible) {
     outline: none;
 }
 

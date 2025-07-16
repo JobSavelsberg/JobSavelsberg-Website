@@ -1,6 +1,12 @@
 ---
 import ConsentBanner from "../components/ConsentBanner.astro";
 import Navigation from "../components/Navigation.astro";
+import { ClientRouter } from "astro:transitions";
+import "../styles/variables.css";
+import "../styles/base.css";
+import "../styles/typography.css";
+import "../styles/layout.css";
+import "../styles/accessibility.css";
 ---
 
 <!doctype html>
@@ -11,6 +17,7 @@ import Navigation from "../components/Navigation.astro";
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
+        <ClientRouter />
         {
             Astro.url.pathname === "/ad-test" && (
                 <>

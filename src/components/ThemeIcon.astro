@@ -119,49 +119,66 @@
 </style>
 
 <script is:inline>
-    const theme = (() => {
-        const localStorageTheme = localStorage?.getItem("theme") ?? "";
-        if (["dark", "light"].includes(localStorageTheme)) {
-            return localStorageTheme;
+    // Initialize theme functionality
+    function initializeTheme() {
+        const theme = (() => {
+            const localStorageTheme = localStorage?.getItem("theme") ?? "";
+            if (["dark", "light"].includes(localStorageTheme)) {
+                return localStorageTheme;
+            }
+            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                return "dark";
+            }
+            return "light";
+        })();
+
+        if (theme === "light") {
+            document.documentElement.classList.remove("dark");
+        } else {
+            document.documentElement.classList.add("dark");
         }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            return "dark";
-        }
-        return "light";
-    })();
 
-    if (theme === "light") {
-        document.documentElement.classList.remove("dark");
-    } else {
-        document.documentElement.classList.add("dark");
-    }
+        window.localStorage.setItem("theme", theme);
 
-    window.localStorage.setItem("theme", theme);
+        // Track rotation state for continuous rotation
+        let currentRotation = theme === "dark" ? 0 : 180;
 
-    // Track rotation state for continuous rotation
-    let currentRotation = theme === "dark" ? 0 : 180;
-
-    // Set initial rotation
-    const disc = document.querySelector(".rotating-disc");
-    if (disc) {
-        disc.style.transform = `rotate(${currentRotation}deg)`;
-    }
-
-    const handleToggleClick = () => {
-        const element = document.documentElement;
+        // Set initial rotation
         const disc = document.querySelector(".rotating-disc");
-
-        element.classList.toggle("dark");
-
-        const isDark = element.classList.contains("dark");
-        localStorage.setItem("theme", isDark ? "dark" : "light");
-
-        // Always rotate clockwise (add 180 degrees)
-        currentRotation += 180;
         if (disc) {
             disc.style.transform = `rotate(${currentRotation}deg)`;
         }
-    };
 
-    document.getElementById("themeToggle")?.addEventListener("click", handleToggleClick);
+        const handleToggleClick = () => {
+            const element = document.documentElement;
+            const disc = document.querySelector(".rotating-disc");
+
+            element.classList.toggle("dark");
+
+            const isDark = element.classList.contains("dark");
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+
+            // Always rotate clockwise (add 180 degrees)
+            currentRotation += 180;
+            if (disc) {
+                disc.style.transform = `rotate(${currentRotation}deg)`;
+            }
+        };
+
+        // Remove any existing event listener to prevent duplicates
+        const themeToggle = document.getElementById("themeToggle");
+        if (themeToggle) {
+            // Clone the element to remove all event listeners
+            const newThemeToggle = themeToggle.cloneNode(true);
+            themeToggle.parentNode?.replaceChild(newThemeToggle, themeToggle);
+            // Add the event listener to the new element
+            newThemeToggle.addEventListener("click", handleToggleClick);
+        }
+    }
+
+    // Initialize on page load
+    initializeTheme();
+
+    // Re-initialize after each client-side navigation
+    document.addEventListener("astro:page-load", initializeTheme);
 </script>

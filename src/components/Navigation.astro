@@ -2,12 +2,12 @@
 import ThemeIcon from "./ThemeIcon.astro";
 ---
 
-<header class="nav-container center">
+<header class="nav-container">
     <a class="home" href="/"> Job Savelsberg </a>
     <div class="nav-links">
-        <!-- <a class="about" href="/about">About</a>
         <a class="photography" href="/photography">Photography</a>
-        <a class="contact" href="/contact">Contact</a> -->
+        <a class="music" href="/music">Music</a>
+        <a class="software" href="/software">Software</a>
     </div>
     <ThemeIcon />
 </header>
@@ -23,6 +23,9 @@ import ThemeIcon from "./ThemeIcon.astro";
         justify-content: space-between;
         align-items: center;
         background-color: var(--color-background);
+        margin-inline: auto;
+        max-inline-size: var(--max-width-centered);
+        width: 100%;
     }
     .nav-links {
         display: flex;

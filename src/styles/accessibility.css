@@ -1,0 +1,37 @@
+/* Accessibility and interaction styles */
+
+/* Remove tap highlights on touch devices while preserving keyboard focus */
+button,
+a,
+input,
+textarea,
+select,
+[tabindex],
+[role="button"],
+[onclick] {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove focus outlines only when not using keyboard navigation */
+button:focus:not(:focus-visible),
+a:focus:not(:focus-visible),
+input:focus:not(:focus-visible),
+textarea:focus:not(:focus-visible),
+select:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible),
+[role="button"]:focus:not(:focus-visible),
+[onclick]:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* Ensure focus is visible for keyboard users */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible,
+[role="button"]:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}

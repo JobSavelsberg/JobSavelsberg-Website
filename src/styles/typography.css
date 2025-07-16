@@ -1,0 +1,23 @@
+/* Typography styles */
+h1 {
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+}
+
+p {
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+}
+
+/* Text utilities */
+.text-center {
+    text-align: center;
+}
+
+.text-large {
+    font-size: 1.25rem;
+}
+
+.text-small {
+    font-size: 0.875rem;
+}

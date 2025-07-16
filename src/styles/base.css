@@ -1,0 +1,18 @@
+/* Base styles and CSS reset */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-family-base);
+}
+
+body {
+    margin: 0 auto;
+    width: 100%;
+    max-width: var(--max-width-content);
+    padding: var(--space-md);
+    line-height: var(--line-height-base);
+}

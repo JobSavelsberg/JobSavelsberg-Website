@@ -34,14 +34,11 @@ a:hover {
 
 /* External link with icon styling */
 .external-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
     font-weight: 500;
 }
 
 .external-link svg {
-    width: 1.2em;
-    height: 1.2em;
+    width: 1em;
+    height: 1em;
     fill: currentColor;
 }

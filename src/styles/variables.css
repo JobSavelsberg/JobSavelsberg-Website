@@ -3,7 +3,7 @@
     /* Colors */
     --color-background: #eee;
     --color-text: #111;
-    --color-primary: #846c5b;
+    --color-primary: hsl(25, 18%, 44%);
 
     /* Spacing */
     --space-xs: 0.25rem;
@@ -26,4 +26,5 @@
 html.dark {
     --color-background: #111;
     --color-text: #eee;
+    --color-primary: hsl(25, 30%, 66%);
 }

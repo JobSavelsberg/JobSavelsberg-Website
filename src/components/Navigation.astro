@@ -8,7 +8,10 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
 ---
 
 <header class="nav-container">
-    <a class="home" href="/"> Job Savelsberg </a>
+    <a class="home" href="/">
+        <span class="home-full">Job Savelsberg</span>
+        <span class="home-short">JS</span>
+    </a>
     <div class="nav-links">
         <a class={`photography ${normalizedPath === "/photography" ? "active" : ""}`} href="/photography">Photography</a
         >
@@ -76,6 +79,20 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
             opacity: 1;
             text-decoration: underline;
             text-decoration-thickness: 2px;
+        }
+    }
+
+    /* Responsive home link text */
+    .home-short {
+        display: none;
+    }
+
+    @media (max-width: 640px) {
+        .home-full {
+            display: none;
+        }
+        .home-short {
+            display: inline;
         }
     }
 </style>

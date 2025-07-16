@@ -8,7 +8,7 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
 ---
 
 <header class="nav-container">
-    <a class="home" href="/">
+    <a class={`home ${normalizedPath === "/" ? "active" : ""}`} href="/">
         <span class="home-full">Job Savelsberg</span>
         <span class="home-short">JS</span>
     </a>
@@ -27,6 +27,7 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
         text-decoration: none;
         color: inherit;
     }
+
     .nav-container {
         display: flex;
         justify-content: space-between;
@@ -87,12 +88,31 @@ const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? curren
         display: none;
     }
 
+    .home-full {
+        display: inline;
+    }
+
     @media (max-width: 640px) {
         .home-full {
-            display: none;
+            display: none !important;
         }
         .home-short {
-            display: inline;
+            display: inline !important;
+        }
+    }
+
+    /* Additional mobile-first approach for better reliability */
+    @media screen and (max-width: 640px) {
+        .home-full {
+            visibility: hidden;
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+        }
+        .home-short {
+            visibility: visible;
+            position: static;
         }
     }
 </style>

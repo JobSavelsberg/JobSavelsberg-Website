@@ -1,0 +1,29 @@
+html {
+    background-color: #eee;
+    color: #111;
+    font-family: sans-serif;
+}
+html.dark {
+    background-color: #111;
+    color: #eee;
+}
+
+body {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 80ch;
+    padding: 1rem;
+    line-height: 1.5;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.center {
+    box-sizing: content-box;
+    margin-inline: auto;
+    width: calc(100% - (var(--space-xl) * 2));
+    max-inline-size: 800px;
+    padding-inline: var(--space-xl);
+}

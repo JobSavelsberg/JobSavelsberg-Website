@@ -1,5 +1,6 @@
 ---
 import ConsentBanner from "../components/ConsentBanner.astro";
+import Navigation from "../components/Navigation.astro";
 ---
 
 <!doctype html>
@@ -49,17 +50,10 @@ import ConsentBanner from "../components/ConsentBanner.astro";
         </script>
 
         <!-- Google AdSense script will be loaded by the ConsentBanner component after user consent -->
-    </head><body>
+    </head>
+    <body>
+        <Navigation />
         <slot />
         <ConsentBanner />
     </body>
-
-    <style>
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-        }
-    </style>
 </html>

@@ -1,0 +1,39 @@
+---
+import ThemeIcon from "./ThemeIcon.astro";
+---
+
+<header class="nav-container center">
+    <a class="home" href="/"> Job Savelsberg </a>
+    <div class="nav-links">
+        <!-- <a class="about" href="/about">About</a>
+        <a class="photography" href="/photography">Photography</a>
+        <a class="contact" href="/contact">Contact</a> -->
+    </div>
+    <ThemeIcon />
+</header>
+<style>
+    .home {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: none;
+        color: inherit;
+    }
+    .nav-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--color-background);
+    }
+    .nav-links {
+        display: flex;
+        gap: 1rem;
+    }
+    .nav-links a {
+        text-decoration: none;
+        color: var(--color-text);
+        font-weight: 500;
+    }
+    .nav-links a:hover {
+        color: var(--color-primary);
+    }
+</style>

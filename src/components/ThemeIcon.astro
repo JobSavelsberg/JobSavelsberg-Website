@@ -55,8 +55,10 @@
         background: radial-gradient(ellipse 45% 90% at bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
     }
 
-    #themeToggle:hover::before {
-        opacity: 1;
+    @media (hover: hover) {
+        #themeToggle:hover::before {
+            opacity: 1;
+        }
     }
 
     .disc-container {
@@ -96,9 +98,11 @@
         color: #fff;
     }
 
-    #themeToggle:hover .sun-icon circle,
-    #themeToggle:hover .moon-icon path {
-        fill-opacity: 1;
+    @media (hover: hover) {
+        #themeToggle:hover .sun-icon circle,
+        #themeToggle:hover .moon-icon path {
+            fill-opacity: 1;
+        }
     }
 
     /* Sun positioned at top of disc (12 o'clock) */

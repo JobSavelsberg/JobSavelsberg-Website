@@ -7,6 +7,8 @@ html {
     background-color: var(--color-background);
     color: var(--color-text);
     font-family: var(--font-family-base);
+    /* Reserve space for scrollbar to prevent content shift, but only show when needed */
+    scrollbar-gutter: stable;
 }
 
 body {
@@ -15,4 +17,31 @@ body {
     max-width: var(--max-width-content);
     padding: var(--space-md);
     line-height: var(--line-height-base);
+}
+
+/* Global link styles */
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* External link with icon styling */
+.external-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-weight: 500;
+}
+
+.external-link svg {
+    width: 1.2em;
+    height: 1.2em;
+    fill: currentColor;
 }

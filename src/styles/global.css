@@ -20,6 +20,30 @@ body {
     box-sizing: border-box;
 }
 
+/* Remove tap highlights and focus outlines on mobile devices */
+button,
+a,
+input,
+textarea,
+select,
+[tabindex],
+[role="button"],
+[onclick] {
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus,
+[tabindex]:focus,
+[role="button"]:focus,
+[onclick]:focus {
+    outline: none;
+}
+
 .center {
     box-sizing: content-box;
     margin-inline: auto;

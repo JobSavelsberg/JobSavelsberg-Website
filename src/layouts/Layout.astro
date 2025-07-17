@@ -1,72 +1,72 @@
 ---
-import ConsentBanner from "../components/ConsentBanner.astro";
 import Navigation from "../components/Navigation.astro";
 import { ClientRouter } from "astro:transitions";
-import "../styles/variables.css";
-import "../styles/base.css";
-import "../styles/typography.css";
-import "../styles/layout.css";
-import "../styles/accessibility.css";
+import "../styles/global.css";
 ---
 
 <!doctype html>
-<html lang="en">
+<html
+    lang="en"
+    class="bg-gray-100 font-sans text-gray-900 dark:bg-gray-900 dark:text-gray-100"
+>
     <head>
         <meta charset="UTF-8" />
         <title>Job Savelsberg</title>
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-            rel="stylesheet"
-        />
         <meta name="generator" content={Astro.generator} />
+
+        <!-- Preload variable fonts to prevent layout shift -->
+        <link
+            rel="preload"
+            href="/fonts/noto-sans-latin-wght-normal.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+        <link
+            rel="preload"
+            href="/fonts/noto-serif-latin-wght-normal.woff2"
+            as="font"
+            type="font/woff2"
+            crossorigin
+        />
+
         <ClientRouter />
-        {
-            Astro.url.pathname === "/ad-test" && (
-                <>
-                    <meta name="robots" content="noindex, nofollow" />
-                    <meta name="googlebot" content="noindex, nofollow" />
-                </>
-            )
-        }
-        <meta name="google-adsense-account" content="ca-pub-7606819328826318" />
-        <script
-            async
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7606819328826318"
-            crossorigin="anonymous"></script>
 
-        <script type="module">
-            // Import the functions you need from the SDKs you need
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-            import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js";
-            // TODO: Add SDKs for Firebase products that you want to use
-            // https://firebase.google.com/docs/web/setup#available-libraries
+        <!-- Theme initialization script - runs immediately to prevent flash -->
+        <script is:inline>
+            (function () {
+                const STORAGE_KEY = "theme";
+                const THEMES = { DARK: "dark", LIGHT: "light" };
 
-            // Your web app's Firebase configuration
-            // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-            const firebaseConfig = {
-                apiKey: "AIzaSyBvTMnYklW-JXr1j3Z9nt72MYamTSGvo2Y",
-                authDomain: "jobsavelsberg-website.firebaseapp.com",
-                projectId: "jobsavelsberg-website",
-                storageBucket: "jobsavelsberg-website.firebasestorage.app",
-                messagingSenderId: "757986505190",
-                appId: "1:757986505190:web:b9eea97fea1a1abb49a627",
-                measurementId: "G-6RG0HYJ74K",
-            };
+                function getStoredTheme() {
+                    const prefersDark = window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches;
+                    const preferred = prefersDark ? THEMES.DARK : THEMES.LIGHT;
 
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
-            const analytics = getAnalytics(app);
+                    const stored = localStorage?.getItem(STORAGE_KEY);
+                    if (stored === THEMES.DARK || stored === THEMES.LIGHT) {
+                        return stored;
+                    }
+
+                    return preferred;
+                }
+
+                const theme = getStoredTheme();
+                if (theme === THEMES.DARK) {
+                    document.documentElement.classList.add(THEMES.DARK);
+                } else {
+                    document.documentElement.classList.remove(THEMES.DARK);
+                }
+            })();
         </script>
-
-        <!-- Google AdSense script will be loaded by the ConsentBanner component after user consent -->
+        <!-- Firebase initialization - can load asynchronously -->
+        <script src="../scripts/firebase-init.ts"></script>
     </head>
-    <body>
+    <body class="m-0 mx-auto w-full max-w-3xl p-4 font-sans leading-relaxed">
         <Navigation />
         <slot />
-        <ConsentBanner />
     </body>
 </html>

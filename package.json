@@ -1,14 +1,28 @@
 {
-  "name": "jobsavelsberg-website",
-  "type": "module",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "astro": "^5.8.0"
-  }
+    "name": "jobsavelsberg-website",
+    "type": "module",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "astro dev",
+        "build": "astro build",
+        "preview": "astro preview",
+        "astro": "astro",
+        "format": "prettier --write .",
+        "format:check": "prettier --check ."
+    },
+    "dependencies": {
+        "@astrojs/svelte": "^7.1.0",
+        "@tailwindcss/vite": "^4.1.11",
+        "astro": "^5.8.0",
+        "firebase": "^11.10.0",
+        "svelte": "^5.36.5",
+        "tailwindcss": "^4.1.11",
+        "typescript": "^5.8.3"
+    },
+    "devDependencies": {
+        "prettier": "^3.6.2",
+        "prettier-plugin-astro": "^0.14.1",
+        "prettier-plugin-svelte": "^3.4.0",
+        "prettier-plugin-tailwindcss": "^0.6.14"
+    }
 }

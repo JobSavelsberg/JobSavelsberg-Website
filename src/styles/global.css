@@ -1,2 +1,68 @@
-/* Global Styles - Main entry point */
-/* Note: Individual CSS modules are now imported directly in Layout.astro */
+/* Global Styles - Tailwind CSS imports */
+@import "tailwindcss";
+
+/* Configure dark mode to use class-based approach */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Define font faces for our preloaded variable fonts */
+@font-face {
+    font-family: "Noto Sans Variable";
+    src: url("/fonts/noto-sans-latin-wght-normal.woff2")
+        format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Serif Variable";
+    src: url("/fonts/noto-serif-latin-wght-normal.woff2")
+        format("woff2-variations");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@layer base {
+    h1 {
+        @apply mb-4 text-4xl font-bold tracking-tight text-gray-900;
+    }
+    h2 {
+        @apply mb-3 text-3xl font-semibold tracking-tight text-gray-800;
+    }
+    h3 {
+        @apply mb-2 text-2xl font-medium tracking-tight text-gray-700;
+    }
+    /* ...and so on for h4–h6 */
+}
+
+@theme {
+    --font-sans: "Noto Sans Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-serif: "Noto Serif Variable", ui-serif, Georgia, serif;
+
+    /* Custom gray palette */
+    --color-gray-0: #ffffff;
+    --color-gray-50: #fafafa;
+    --color-gray-100: #eeeeee;
+    --color-gray-200: #e5e5e5;
+    --color-gray-300: #d4d4d4;
+    --color-gray-400: #a3a3a3;
+    --color-gray-500: #737373;
+    --color-gray-600: #525252;
+    --color-gray-700: #404040;
+    --color-gray-800: #262626;
+    --color-gray-900: #111111;
+    --color-gray-950: #000;
+
+    /* Override default white/black text colors */
+    --color-white: #eeeeee;
+    --color-black: #111111;
+}
+
+/* Custom global styles that can't be easily done with Tailwind utilities */
+html {
+    scrollbar-gutter: stable;
+    /* Ensure smooth font rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}

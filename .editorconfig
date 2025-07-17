@@ -14,10 +14,10 @@ charset = utf-8
 [*.{js,ts,json,astro,svelte,css,scss,html,md,yml,yaml}]
 indent_style = space
 indent_size = 4
-max_line_length = 120
+max_line_length = 80
 
-# 2 spaces for package.json and other specific files
-[{package.json,.prettierrc,*.yml,*.yaml}]
+# 2 spaces for package.json and other config files (but not .prettierrc)
+[{package.json,*.yml,*.yaml}]
 indent_size = 2
 
 # Markdown files can have trailing whitespace for line breaks

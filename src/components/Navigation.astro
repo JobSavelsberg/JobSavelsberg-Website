@@ -1,124 +1,52 @@
 ---
-import ThemeIcon from "./ThemeIcon.astro";
+import ThemeToggle from "./ThemeToggle.svelte";
 
 // Get the current pathname to determine active page
 const currentPath = Astro.url.pathname;
 // Remove trailing slash for consistent matching
-const normalizedPath = currentPath.endsWith("/") && currentPath !== "/" ? currentPath.slice(0, -1) : currentPath;
+const normalizedPath =
+    currentPath.endsWith("/") && currentPath !== "/"
+        ? currentPath.slice(0, -1)
+        : currentPath;
 ---
 
-<header class="nav-container">
-    <a class={`home ${normalizedPath === "/" ? "active" : ""}`} href="/">
-        <span class="home-full">Job Savelsberg</span>
-        <span class="home-short">JS</span>
+<header
+    class="flex w-full items-center justify-between bg-gray-100 dark:bg-gray-900"
+>
+    <a
+        class={`text-2xl font-bold no-underline text-inherit hover:opacity-80 transition-opacity duration-200 ${normalizedPath === "/" ? "underline decoration-2" : ""}`}
+        href="/"
+    >
+        <span class="hidden sm:inline">Job Savelsberg</span>
+        <span class="inline sm:hidden">JS</span>
     </a>
-    <div class="nav-links">
-        <a class={`photography ${normalizedPath === "/photography" ? "active" : ""}`} href="/photography">Photography</a
+    <div class="flex gap-2">
+        <a
+            class={`no-underline text-gray-900 dark:text-gray-100 font-medium px-2 py-2
+                    transition-all duration-200 ease-in-out text-sm opacity-70 hover:opacity-100 hover:underline
+                    ${normalizedPath === "/photography" ? "opacity-100 underline decoration-2" : ""}`}
+            href="/photography"
+            style="text-underline-offset: 4px;"
         >
-        <a class={`music ${normalizedPath === "/music" ? "active" : ""}`} href="/music">Music</a>
-        <a class={`software ${normalizedPath === "/software" ? "active" : ""}`} href="/software">Software</a>
+            Photography
+        </a>
+        <a
+            class={`no-underline text-gray-900 dark:text-gray-100 font-medium px-2 py-2
+                    transition-all duration-200 ease-in-out text-sm opacity-70 hover:opacity-100 hover:underline
+                    ${normalizedPath === "/music" ? "opacity-100 underline decoration-2" : ""}`}
+            href="/music"
+            style="text-underline-offset: 4px;"
+        >
+            Music
+        </a>
+        <a
+            class={`no-underline text-gray-900 dark:text-gray-100 font-medium px-2 py-2
+                    transition-all duration-200 ease-in-out text-sm opacity-70 hover:opacity-100 hover:underline
+                    ${normalizedPath === "/software" ? "opacity-100 underline decoration-2" : ""}`}
+            href="/software"
+        >
+            Software
+        </a>
     </div>
-    <ThemeIcon />
+    <ThemeToggle client:load />
 </header>
-<style>
-    .home {
-        font-size: 1.5rem;
-        font-weight: bold;
-        text-decoration: none;
-        color: inherit;
-    }
-
-    .home.active {
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        text-decoration-thickness: 2px;
-    }
-
-    .nav-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background-color: var(--color-background);
-        margin-inline: auto;
-        max-inline-size: var(--max-width-centered);
-        width: 100%;
-    }
-    .nav-links {
-        display: flex;
-        gap: 0.5rem;
-    }
-    .nav-links a {
-        text-decoration: none;
-        color: var(--color-text);
-        font-weight: 500;
-        padding: 0.5rem;
-        transition:
-            opacity 0.2s ease,
-            text-decoration 0.2s ease;
-        font-size: 0.95rem;
-        opacity: 0.7;
-    }
-    .nav-links a:hover {
-        opacity: 1;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-    }
-    .nav-links a.active {
-        opacity: 1;
-        font-weight: 500;
-        text-decoration: underline;
-        text-underline-offset: 4px;
-        text-decoration-thickness: 2px;
-    }
-
-    /* Ensure active state takes precedence on mobile */
-    .nav-links a.active:hover {
-        text-decoration-thickness: 2px;
-    }
-
-    /* Better mobile touch handling */
-    @media (hover: none) and (pointer: coarse) {
-        .nav-links a:hover {
-            opacity: 0.7;
-            text-decoration: none;
-        }
-        .nav-links a.active {
-            opacity: 1;
-            text-decoration: underline;
-            text-decoration-thickness: 2px;
-        }
-    }
-
-    /* Responsive home link text */
-    .home-short {
-        display: none;
-    }
-
-    .home-full {
-        display: inline;
-    }
-
-    @media (max-width: 640px) {
-        .home-full {
-            display: none !important;
-        }
-        .home-short {
-            display: inline !important;
-        }
-    }
-
-    /* Additional mobile-first approach for better reliability */
-    @media screen and (max-width: 640px) {
-        .home-full {
-            visibility: hidden;
-            position: absolute;
-            width: 0;
-            height: 0;
-            overflow: hidden;
-        }
-        .home-short {
-            visibility: visible;
-            position: static;
-        }
-    }
-</style>

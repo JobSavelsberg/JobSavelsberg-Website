@@ -1,12 +1,23 @@
 ---
+export interface Props {
+    class?: string;
+}
 
+const { class: className } = Astro.props;
 ---
 
-<button id="themeToggle">
+<button id="theme-toggle" class:list={["theme-toggle", className]} aria-label="Toggle theme">
     <div class="disc-container">
-        <div class="rotating-disc">
-            <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2"></circle>
+        <div id="theme-disc" class="rotating-disc" data-theme="light">
+            <svg
+                class="theme-icon sun-icon"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+                <circle cx="12" cy="12" r="6" stroke="currentColor" stroke-width="2" fill="none"></circle>
                 <path d="m12 0.5 0 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                 <path d="m12 22 0 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
                 <path d="m3.5 3.5 1.5 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
@@ -17,18 +28,28 @@
                 <path d="m20.5 3.5-1.5 1.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
             </svg>
 
-            <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"
-                ></path>
+            <svg
+                class="theme-icon moon-icon"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+            >
+                <path
+                    d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"></path>
             </svg>
         </div>
     </div>
 </button>
 
 <style>
-    #themeToggle {
+    .theme-toggle {
         border: 0;
-        background: none;
+        background: transparent;
         cursor: pointer;
         display: flex;
         align-items: center;
@@ -36,36 +57,39 @@
         border-radius: 15px;
         position: relative;
         overflow: hidden;
+        transition: transform 0.1s ease;
     }
 
-    #themeToggle::before {
+    .theme-toggle:focus-visible {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+
+    .theme-toggle::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: radial-gradient(ellipse 45% 90% at bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+        inset: 0;
+        background: radial-gradient(ellipse 45% 90% at bottom, rgba(0, 0, 0, 0.3), transparent);
         opacity: 0;
         transition: opacity 0.3s ease;
         pointer-events: none;
     }
 
-    :global(.dark) #themeToggle::before {
-        background: radial-gradient(ellipse 45% 90% at bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+    :global(.dark) .theme-toggle::before {
+        background: radial-gradient(ellipse 45% 90% at bottom, rgba(255, 255, 255, 0.3), transparent);
     }
 
     @media (hover: hover) {
-        #themeToggle:hover::before {
+        .theme-toggle:hover::before {
             opacity: 1;
         }
     }
 
     .disc-container {
         width: 30px;
-        height: 30px; /* Only show top half */
+        height: 30px;
         overflow: hidden;
-        border-radius: 15px; /* Semicircle shape */
+        border-radius: 15px;
         position: relative;
     }
 
@@ -75,110 +99,131 @@
         position: absolute;
         top: 0;
         left: -16px;
+        transform-origin: 30px 30px;
         transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        transform-origin: 30px 30px; /* Center of the disc */
     }
 
-    .sun-icon,
-    .moon-icon {
+    .rotating-disc[data-theme="light"] {
+        transform: rotate(180deg);
+    }
+
+    .rotating-disc[data-theme="dark"] {
+        transform: rotate(0deg);
+    }
+
+    .theme-icon {
         position: absolute;
-        color: #000;
+        color: currentColor;
     }
 
-    .sun-icon circle,
-    .sun-icon path,
-    .moon-icon path {
-        fill: currentColor;
-        fill-opacity: 0;
-        transition: fill-opacity 0.2s ease;
+    .theme-icon circle,
+    .theme-icon path {
+        transition: opacity 0.2s ease;
     }
 
-    :global(.dark) .sun-icon,
-    :global(.dark) .moon-icon {
-        color: #fff;
+    :global(.dark) .theme-icon {
+        color: white;
     }
 
     @media (hover: hover) {
-        #themeToggle:hover .sun-icon circle,
-        #themeToggle:hover .moon-icon path {
-            fill-opacity: 1;
+        .theme-toggle:hover .theme-icon circle,
+        .theme-toggle:hover .theme-icon path {
+            opacity: 1;
         }
     }
 
-    /* Sun positioned at top of disc (12 o'clock) */
+    /* Icon positioning: Sun at top (12 o'clock), Moon at bottom (6 o'clock) */
     .sun-icon {
-        left: 20px; /* Center horizontally in the disc */
-        top: 35px; /* Moved closer to edge */
+        left: 20px;
+        top: 35px;
     }
 
-    /* Moon positioned at bottom of disc (6 o'clock) */
     .moon-icon {
-        left: 20px; /* Center horizontally in the disc */
-        top: 4px; /* Moved further from center */
+        left: 20px;
+        top: 4px;
+    }
+
+    /* Reduced motion accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        .rotating-disc {
+            transition: none;
+        }
+
+        .theme-toggle::before {
+            transition: none;
+        }
+
+        .theme-icon circle,
+        .theme-icon path {
+            transition: none;
+        }
     }
 </style>
 
 <script is:inline>
-    // Initialize theme functionality
-    function initializeTheme() {
-        const theme = (() => {
-            const localStorageTheme = localStorage?.getItem("theme") ?? "";
-            if (["dark", "light"].includes(localStorageTheme)) {
-                return localStorageTheme;
-            }
-            if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-                return "dark";
-            }
-            return "light";
-        })();
+    const THEMES = {
+        DARK: "dark",
+        LIGHT: "light",
+    };
 
-        if (theme === "light") {
-            document.documentElement.classList.remove("dark");
+    const STORAGE_KEY = "theme";
+    const ELEMENT_IDS = {
+        TOGGLE: "theme-toggle",
+        DISC: "theme-disc",
+    };
+
+    function getStoredTheme() {
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const preferred = prefersDark ? THEMES.DARK : THEMES.LIGHT;
+
+        const stored = localStorage?.getItem(STORAGE_KEY);
+        if (stored === THEMES.DARK || stored === THEMES.LIGHT) {
+            return stored;
+        }
+
+        return preferred;
+    }
+
+    function applyTheme(theme) {
+        const html = document.documentElement;
+        const disc = document.getElementById(ELEMENT_IDS.DISC);
+
+        if (theme === THEMES.DARK) {
+            html.classList.add(THEMES.DARK);
         } else {
-            document.documentElement.classList.add("dark");
+            html.classList.remove(THEMES.DARK);
         }
 
-        window.localStorage.setItem("theme", theme);
-
-        // Track rotation state for continuous rotation
-        let currentRotation = theme === "dark" ? 0 : 180;
-
-        // Set initial rotation
-        const disc = document.querySelector(".rotating-disc");
         if (disc) {
-            disc.style.transform = `rotate(${currentRotation}deg)`;
+            disc.dataset.theme = theme;
         }
 
-        const handleToggleClick = () => {
-            const element = document.documentElement;
-            const disc = document.querySelector(".rotating-disc");
+        localStorage.setItem(STORAGE_KEY, theme);
+    }
 
-            element.classList.toggle("dark");
+    function toggleTheme() {
+        const currentTheme = document.documentElement.classList.contains(THEMES.DARK) ? THEMES.DARK : THEMES.LIGHT;
+        const newTheme = currentTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
+        applyTheme(newTheme);
+    }
 
-            const isDark = element.classList.contains("dark");
-            localStorage.setItem("theme", isDark ? "dark" : "light");
+    function initializeTheme() {
+        const theme = getStoredTheme();
+        applyTheme(theme);
 
-            // Always rotate clockwise (add 180 degrees)
-            currentRotation += 180;
-            if (disc) {
-                disc.style.transform = `rotate(${currentRotation}deg)`;
-            }
-        };
-
-        // Remove any existing event listener to prevent duplicates
-        const themeToggle = document.getElementById("themeToggle");
-        if (themeToggle) {
-            // Clone the element to remove all event listeners
-            const newThemeToggle = themeToggle.cloneNode(true);
-            themeToggle.parentNode?.replaceChild(newThemeToggle, themeToggle);
-            // Add the event listener to the new element
-            newThemeToggle.addEventListener("click", handleToggleClick);
+        // Clean event listeners to prevent duplicates
+        const toggleButton = document.getElementById(ELEMENT_IDS.TOGGLE);
+        if (toggleButton) {
+            // Clone to remove all event listeners
+            const newButton = toggleButton.cloneNode(true);
+            toggleButton.parentNode?.replaceChild(newButton, toggleButton);
+            newButton.addEventListener("click", toggleTheme);
         }
     }
 
-    // Initialize on page load
+    // Initialize theme immediately
     initializeTheme();
 
-    // Re-initialize after each client-side navigation
+    // Re-initialize after client-side navigation (Astro view transitions)
     document.addEventListener("astro:page-load", initializeTheme);
 </script>

@@ -50,14 +50,27 @@
         applyTheme(newTheme);
     }
 
-    onMount(() => {
+    function initializeTheme() {
         const theme = getStoredTheme();
         applyTheme(theme);
-        mounted = true;
-        // Enable animation after mount to prevent initial rotation
-        requestAnimationFrame(() => {
-            shouldAnimate = true;
-        });
+        if (!mounted) {
+            mounted = true;
+            // Enable animation after mount to prevent initial rotation
+            requestAnimationFrame(() => {
+                shouldAnimate = true;
+            });
+        }
+    }
+
+    onMount(() => {
+        initializeTheme();
+
+        // Reinitialize theme after Astro navigation to stay in sync
+        document.addEventListener("astro:page-load", initializeTheme);
+
+        return () => {
+            document.removeEventListener("astro:page-load", initializeTheme);
+        };
     });
 </script>
 
@@ -228,7 +241,8 @@
 
     .theme-icon circle,
     .theme-icon path {
-        transition: all 0.2s ease-in-out;
+        /* Remove color transitions to prevent flash during theme changes */
+        transition: fill 0.2s ease-in-out;
     }
 
     @media (hover: hover) {

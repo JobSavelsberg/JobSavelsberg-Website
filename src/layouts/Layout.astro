@@ -8,6 +8,46 @@ import "../styles/global.css";
 <html lang="en" class="bg-neutral-200 font-sans dark:bg-neutral-900">
     <head>
         <meta charset="UTF-8" />
+
+        <!-- Theme initialization script - MUST run first to prevent flash -->
+        <script is:inline>
+            (function () {
+                const STORAGE_KEY = "theme";
+                const THEMES = { DARK: "dark", LIGHT: "light" };
+
+                function getStoredTheme() {
+                    if (typeof window === "undefined") return THEMES.LIGHT;
+
+                    const prefersDark = window.matchMedia(
+                        "(prefers-color-scheme: dark)"
+                    ).matches;
+                    const preferred = prefersDark ? THEMES.DARK : THEMES.LIGHT;
+
+                    const stored = localStorage?.getItem(STORAGE_KEY);
+                    if (stored === THEMES.DARK || stored === THEMES.LIGHT) {
+                        return stored;
+                    }
+
+                    return preferred;
+                }
+
+                function applyTheme() {
+                    const theme = getStoredTheme();
+                    if (theme === THEMES.DARK) {
+                        document.documentElement.classList.add(THEMES.DARK);
+                    } else {
+                        document.documentElement.classList.remove(THEMES.DARK);
+                    }
+                }
+
+                // Apply theme immediately
+                applyTheme();
+
+                // Reapply theme after Astro navigation
+                document.addEventListener("astro:page-load", applyTheme);
+            })();
+        </script>
+
         <title>Job Savelsberg</title>
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -30,35 +70,6 @@ import "../styles/global.css";
         />
 
         <ClientRouter />
-
-        <!-- Theme initialization script - runs immediately to prevent flash -->
-        <script is:inline>
-            (function () {
-                const STORAGE_KEY = "theme";
-                const THEMES = { DARK: "dark", LIGHT: "light" };
-
-                function getStoredTheme() {
-                    const prefersDark = window.matchMedia(
-                        "(prefers-color-scheme: dark)"
-                    ).matches;
-                    const preferred = prefersDark ? THEMES.DARK : THEMES.LIGHT;
-
-                    const stored = localStorage?.getItem(STORAGE_KEY);
-                    if (stored === THEMES.DARK || stored === THEMES.LIGHT) {
-                        return stored;
-                    }
-
-                    return preferred;
-                }
-
-                const theme = getStoredTheme();
-                if (theme === THEMES.DARK) {
-                    document.documentElement.classList.add(THEMES.DARK);
-                } else {
-                    document.documentElement.classList.remove(THEMES.DARK);
-                }
-            })();
-        </script>
         <!-- Firebase initialization - can load asynchronously -->
         <script src="../scripts/firebase-init.ts"></script>
     </head>

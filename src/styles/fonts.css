@@ -1,0 +1,29 @@
+/* Font Component - Variable Font Definitions */
+
+@layer base {
+    /* Font face definitions */
+    @font-face {
+        font-family: "Noto Sans Variable";
+        src: url("/fonts/noto-sans-latin-wght-normal.woff2")
+            format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    @font-face {
+        font-family: "Noto Serif Variable";
+        src: url("/fonts/noto-serif-latin-wght-normal.woff2")
+            format("woff2-variations");
+        font-weight: 100 900;
+        font-style: normal;
+        font-display: swap;
+    }
+
+    /* Font rendering optimizations */
+    :root {
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}

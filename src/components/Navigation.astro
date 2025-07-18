@@ -12,7 +12,8 @@ const normalizedPath =
 
 <header class="flex w-full items-center justify-between">
     <a
-        class={`text-2xl text-primary font-bold hover:opacity-80 transition-opacity duration-200 ${normalizedPath === "/" ? "underline decoration-2" : ""}`}
+        class={`text-2xl text-primary font-bold underline-offset-[2px]  decoration-[3.5px]
+            ${normalizedPath === "/" ? "underline" : ""}`}
         href="/"
     >
         <span class="hidden sm:inline">Job Savelsberg</span>
@@ -20,27 +21,25 @@ const normalizedPath =
     </a>
     <div class="flex gap-2">
         <a
-            class={`text-primary font-medium px-2 py-2
-                    text-sm opacity-70 hover:opacity-100 hover:underline
-                    ${normalizedPath === "/photography" ? "opacity-100 underline decoration-2" : ""}`}
+            class={`text-primary font-semibold px-2 py-2
+                    text-sm  underline-offset-[1.5px] decoration-[1.5px]
+                    ${normalizedPath === "/photography" ? "underline" : ""}`}
             href="/photography"
-            style="text-underline-offset: 4px;"
         >
             Photography
         </a>
         <a
-            class={`text-primary font-medium px-2 py-2
-                    text-sm opacity-70 hover:opacity-100 hover:underline
-                    ${normalizedPath === "/music" ? "opacity-100 underline decoration-2" : ""}`}
+            class={`text-primary font-semibold px-2 py-2
+                    text-sm underline-offset-[1.5px] decoration-[1.5px]
+                    ${normalizedPath === "/music" ? "underline" : ""}`}
             href="/music"
-            style="text-underline-offset: 4px;"
         >
             Music
         </a>
         <a
-            class={`text-primary font-medium px-2 py-2
-                    text-sm opacity-70 hover:opacity-100 hover:underline
-                    ${normalizedPath === "/software" ? "opacity-100 underline decoration-2" : ""}`}
+            class={`text-primary font-semibold px-2 py-2
+                    text-sm underline-offset-[1.5px] decoration-[1.5px]
+                    ${normalizedPath === "/software" ? "underline" : ""}`}
             href="/software"
         >
             Software

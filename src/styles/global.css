@@ -60,3 +60,9 @@ html {
         @apply text-primary;
     }
 }
+
+@layer components {
+}
+
+@layer utilities {
+}

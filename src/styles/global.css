@@ -1,35 +1,14 @@
 /* Global Styles - Tailwind CSS imports */
 @import "tailwindcss";
 
+/* Import component styles */
+@import "./components/fonts.css";
+@import "./components/scrollbar.css";
+
 /* Custom global styles that can't be easily done with Tailwind utilities */
-html {
-    scrollbar-gutter: stable;
-    /* Ensure smooth font rendering */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
 
 /* Configure dark mode to use class-based approach */
 @custom-variant dark (&:where(.dark, .dark *));
-
-/* Define font faces for our preloaded variable fonts */
-@font-face {
-    font-family: "Noto Sans Variable";
-    src: url("/fonts/noto-sans-latin-wght-normal.woff2")
-        format("woff2-variations");
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Noto Serif Variable";
-    src: url("/fonts/noto-serif-latin-wght-normal.woff2")
-        format("woff2-variations");
-    font-weight: 100 900;
-    font-style: normal;
-    font-display: swap;
-}
 
 :root {
     --color-primary: #111;

@@ -1,76 +1,32 @@
 <!-- ThemeToggle Svelte component with interactive theme switching -->
 <script lang="ts">
     import { onMount } from "svelte";
+    import { themeStore, THEMES } from "../stores/theme";
 
-    let isDark = false;
     let mounted = false;
     let shouldAnimate = false;
 
-    const THEMES = {
-        DARK: "dark",
-        LIGHT: "light",
-    } as const;
-
-    const STORAGE_KEY = "theme";
-
-    function getStoredTheme(): string {
-        if (typeof window === "undefined") return THEMES.LIGHT;
-
-        const prefersDark = window.matchMedia(
-            "(prefers-color-scheme: dark)"
-        ).matches;
-        const preferred = prefersDark ? THEMES.DARK : THEMES.LIGHT;
-
-        const stored = localStorage?.getItem(STORAGE_KEY);
-        if (stored === THEMES.DARK || stored === THEMES.LIGHT) {
-            return stored;
-        }
-
-        return preferred;
-    }
-
-    function applyTheme(theme: string) {
-        if (typeof document === "undefined") return;
-
-        const html = document.documentElement;
-
-        if (theme === THEMES.DARK) {
-            html.classList.add(THEMES.DARK);
-            isDark = true;
-        } else {
-            html.classList.remove(THEMES.DARK);
-            isDark = false;
-        }
-
-        localStorage.setItem(STORAGE_KEY, theme);
-    }
+    // Use the store for reactivity
+    $: theme = $themeStore;
+    $: isDark = theme === THEMES.DARK;
 
     function toggleTheme() {
+        if (typeof document === "undefined") return;
+        const html = document.documentElement;
         const newTheme = isDark ? THEMES.LIGHT : THEMES.DARK;
-        applyTheme(newTheme);
-    }
-
-    function initializeTheme() {
-        const theme = getStoredTheme();
-        applyTheme(theme);
-        if (!mounted) {
-            mounted = true;
-            // Enable animation after mount to prevent initial rotation
-            requestAnimationFrame(() => {
-                shouldAnimate = true;
-            });
-        }
+        html.classList.toggle(THEMES.DARK, newTheme === THEMES.DARK);
+        localStorage.setItem("theme", newTheme);
+        // themeStore will auto-update via MutationObserver
     }
 
     onMount(() => {
-        initializeTheme();
-
-        // Reinitialize theme after Astro navigation to stay in sync
-        document.addEventListener("astro:page-load", initializeTheme);
-
-        return () => {
-            document.removeEventListener("astro:page-load", initializeTheme);
-        };
+        // Initialize the theme store (sets up observer)
+        themeStore.init();
+        mounted = true;
+        // Enable animation after mount to prevent initial rotation
+        requestAnimationFrame(() => {
+            shouldAnimate = true;
+        });
     });
 </script>
 

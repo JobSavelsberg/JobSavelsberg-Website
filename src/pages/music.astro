@@ -1,14 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import MusicEmbed from "../components/MusicEmbed.svelte";
 ---
 
 <Layout>
     <main class="pt-8">
-        <blockquote
-            class="text-primary border-primary border-l-4 pl-4 font-serif"
-            style="font-style: italic;"
-        >
-            This page is coming soon...
-        </blockquote>
+        <MusicEmbed client:load />
     </main>
 </Layout>

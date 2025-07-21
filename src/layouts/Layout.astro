@@ -1,6 +1,7 @@
 ---
 import Navigation from "../components/Navigation.astro";
 import { ClientRouter } from "astro:transitions";
+import GlobalStyleImport from "../components/GlobalStyleImport.svelte";
 import "../styles/global.css";
 ---
 
@@ -68,6 +69,8 @@ import "../styles/global.css";
             type="font/woff2"
             crossorigin
         />
+        <!-- Makes sure all svelte components get our global defined styles -->
+        <GlobalStyleImport />
 
         <ClientRouter />
         <!-- Firebase initialization - can load asynchronously -->

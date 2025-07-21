@@ -9,7 +9,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
     site: "https://jobsavelsberg.com",
     integrations: [svelte()],
-
     vite: {
         plugins: [tailwindcss()],
     },

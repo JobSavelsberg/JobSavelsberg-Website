@@ -1,13 +1,91 @@
 ---
 import Layout from "../layouts/Layout.astro";
+type Repo = {
+    name: string;
+    description: string;
+    html_url: string;
+    stargazers_count: number;
+    forks_count: number;
+    fork: boolean;
+};
+const res = await fetch("https://api.github.com/users/jobsavelsberg/repos");
+const repos = (await res.json()) as Array<Repo>;
+let projects: Array<Repo> = [];
+if (Array.isArray(repos)) {
+    projects = repos
+        .filter(repo => !repo.fork)
+        .sort((a, b) => b.stargazers_count - a.stargazers_count)
+        .slice(0, 6); // show top 6 projects
+}
 ---
 
 <Layout>
     <main class="pt-8">
+        <section class="my-12">
+            <h2 class="text-primary mb-6 text-3xl font-semibold">
+                Github Projects
+            </h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {
+                    projects.map(repo => (
+                        <a
+                            href={repo.html_url}
+                            class="group flex h-full flex-col rounded-md bg-white p-6 transition hover:shadow-lg dark:bg-neutral-800"
+                            target="_blank"
+                        >
+                            <h3 class="mb-2 text-xl font-bold text-neutral-900 dark:text-white">
+                                {repo.name}
+                            </h3>
+                            <p class="mb-4 line-clamp-5 text-sm text-neutral-600 group-hover:no-underline dark:text-neutral-400">
+                                {repo.description}
+                            </p>
+                            <div class="flex-grow" />
+                            <div class="mt-4 flex items-center gap-1 text-xs text-neutral-500 dark:text-neutral-400">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="text-primary h-4 w-4"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.966a1 1 0 00.95.69h4.175c.969 0 1.371 1.24.588 1.81l-3.38 2.455a1 1 0 00-.364 1.118l1.287 3.966c.3.921-.755 1.688-1.54 1.118l-3.38-2.455a1 1 0 00-1.176 0l-3.38 2.455c-.784.57-1.838-.197-1.539-1.118l1.287-3.966a1 1 0 00-.364-1.118L2.049 9.393c-.783-.57-.38-1.81.588-1.81h4.175a1 1 0 00.95-.69l1.286-3.966z" />
+                                </svg>
+                                {repo.stargazers_count}
+                            </div>
+                        </a>
+                    ))
+                }
+            </div>
+        </section>
+        <style>
+            .animate-cursor {
+                display: inline-block;
+                width: 0.16em;
+                background: currentColor;
+                margin-left: 0.1em;
+                vertical-align: middle;
+                transform: translateY(-0.1em);
+                animation: cursor-grow 0.7s ease infinite alternate;
+            }
+            @keyframes cursor-grow {
+                0% {
+                    height: 0.5em;
+                    opacity: 0;
+                }
+                80% {
+                    height: 1.5em;
+                    opacity: 0.8;
+                }
+                100% {
+                    height: 1.5em;
+                    opacity: 0.8;
+                }
+            }
+        </style>
         <code
             class="text-primary border-primary overflow-x-auto rounded-md border-2 p-4 font-mono text-sm"
         >
-            This page is coming soon...
+            Why do programmers prefer dark mode? Because light attracts bugs!<span
+                class="animate-cursor"></span>
         </code>
     </main>
 </Layout>

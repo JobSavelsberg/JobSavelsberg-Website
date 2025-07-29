@@ -1,4 +1,5 @@
 ---
+import Code from "astro/components/Code.astro";
 import Layout from "../layouts/Layout.astro";
 type Repo = {
     name: string;
@@ -107,11 +108,9 @@ if (Array.isArray(repos)) {
                 }
             }
         </style>
-        <code
-            class="text-primary border-primary overflow-x-auto rounded-md border-2 p-4 font-mono text-sm"
-        >
-            Why do programmers prefer dark mode? Because light attracts bugs!<span
-                class="animate-cursor"></span>
-        </code>
+        <pre
+            class="text-primary border-primary rounded-md border-2 p-4 whitespace-pre-line">
+            <code class="font-mono text-sm">Why do programmers prefer dark mode? Because light attracts bugs!<span class="animate-cursor" /></code>
+        </pre>
     </main>
 </Layout>

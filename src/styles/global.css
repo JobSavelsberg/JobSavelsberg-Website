@@ -12,11 +12,11 @@
 
 :root {
     --color-primary: #111;
-    --color-link: oklch(0.5 0.05 100);
+    --color-link: #775533;
 }
 .dark {
     --color-primary: #eee;
-    --color-link: oklch(0.7 0.03 100);
+    --color-link: #aa8855;
 }
 
 @theme {

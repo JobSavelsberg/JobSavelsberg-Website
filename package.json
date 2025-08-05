@@ -13,10 +13,13 @@
     "dependencies": {
         "@astrojs/svelte": "^7.1.0",
         "@tailwindcss/vite": "^4.1.11",
+        "@types/three": "^0.179.0",
         "astro": "^5.8.0",
         "firebase": "^11.10.0",
         "svelte": "^5.36.5",
         "tailwindcss": "^4.1.11",
+        "three": "^0.179.1",
+        "tone": "^15.1.22",
         "typescript": "^5.8.3"
     },
     "devDependencies": {

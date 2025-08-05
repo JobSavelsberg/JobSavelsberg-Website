@@ -1,9 +1,36 @@
 ---
 import Layout from "../layouts/Layout.astro";
+const birthday = new Date("1997-03-09");
+const now = new Date();
+
+function fullYearsBetween(date1: Date, date2: Date): number {
+    let years = date2.getFullYear() - date1.getFullYear();
+
+    // Adjust if the current year’s month/day hasn’t passed yet
+    const monthDiff = date2.getMonth() - date1.getMonth();
+    const dayDiff = date2.getDate() - date1.getDate();
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        years--;
+    }
+
+    return years;
+}
+
+const age = fullYearsBetween(birthday, now);
 ---
 
 <Layout>
     <main class="pt-8">
-        <p>This page is coming soon...</p>
+        <section>
+            <p>
+                Hi, I'm Job Savelsberg, {age} years old, living in the Netherlands.
+            </p>
+            <p>
+                I'm a software engineer with a passion for creating things.
+                Apart from software, I especially enjoy making music and
+                photography.
+            </p>
+            <p>Take a look around to see what I've been up to!</p>
+        </section>
     </main>
 </Layout>

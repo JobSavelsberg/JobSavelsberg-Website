@@ -5,12 +5,22 @@ export class Audio {
     private started = false;
     private readonly cMajor = ["C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5"];
 
-    constructor() {
-        this.reverb = new Tone.Reverb(2);
-        this.reverb.wet.value = 0.8;
-        this.reverb.toDestination();
-    }
+    private osc: Tone.Oscillator;
+    private env: Tone.AmplitudeEnvelope;
 
+    constructor() {
+        this.reverb = new Tone.Reverb(2).toDestination();
+        this.reverb.wet.value = 0.8;
+
+        this.env = new Tone.AmplitudeEnvelope({
+            attack: 0.02,
+            decay: 1.5,
+            sustain: 0,
+            release: 0.2,
+        }).connect(this.reverb);
+
+        this.osc = new Tone.Oscillator("C4", "sine").connect(this.env).start();
+    }
     public async init(): Promise<void> {
         await Tone.loaded();
     }
@@ -21,37 +31,15 @@ export class Audio {
             this.started = true;
         }
 
-        const duration = 2; // note duration
         const note =
             this.cMajor[Math.floor(Math.random() * this.cMajor.length)];
-
-        const osc = new Tone.Oscillator(note, "sine");
-        const env = new Tone.AmplitudeEnvelope({
-            attack: 0.01,
-            decay: duration,
-            sustain: 0,
-            release: 0.1,
-        });
-
-        // Proper routing: osc -> env -> reverb
-        osc.connect(env);
-        env.connect(this.reverb);
-
-        const time = Tone.now();
-
-        osc.start(time);
-        env.triggerAttackRelease(duration, time);
-
-        setTimeout(
-            () => {
-                osc.dispose();
-                env.dispose();
-            },
-            duration * 1000 + 100
-        ); // Add small buffer
+        this.osc.frequency.setValueAtTime(note, Tone.now());
+        this.env.triggerAttackRelease(2);
     }
 
     public dispose(): void {
         this.reverb.dispose();
+        this.osc.dispose();
+        this.env.dispose();
     }
 }

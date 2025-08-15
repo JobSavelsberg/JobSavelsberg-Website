@@ -42,11 +42,13 @@ export class Audio {
         osc.start(time);
         env.triggerAttackRelease(duration, time);
 
-        // Schedule cleanup using Tone's transport
-        Tone.getTransport().scheduleOnce(() => {
-            osc.dispose();
-            env.dispose();
-        }, time + duration);
+        setTimeout(
+            () => {
+                osc.dispose();
+                env.dispose();
+            },
+            duration * 1000 + 100
+        ); // Add small buffer
     }
 
     public dispose(): void {

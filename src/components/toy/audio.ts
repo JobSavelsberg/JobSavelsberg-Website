@@ -30,7 +30,7 @@ export class Audio {
             attack: 0.01,
             decay: duration,
             sustain: 0,
-            release: 0,
+            release: 0.1,
         });
 
         // Proper routing: osc -> env -> reverb

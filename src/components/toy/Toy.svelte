@@ -23,9 +23,9 @@
 <div class="toy">
     <div
         bind:this={container}
-        on:mousemove={toy?.interaction.mousemove}
-        on:mousedown={toy?.interaction.mousedown}
-        on:mouseup={toy?.interaction.mouseup}
+        on:pointermove={toy?.interaction.pointermove}
+        on:pointerdown={toy?.interaction.pointerdown}
+        on:pointerup={toy?.interaction.pointerup}
         on:keydown={toy?.interaction.keydown}
         on:keyup={toy?.interaction.keyup}
         role="button"

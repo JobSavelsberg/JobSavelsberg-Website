@@ -20,22 +20,26 @@ export class Interaction {
         console.log("Key down event:", event.key);
     };
 
-    public mousemove = (event: MouseEvent): void => {
-        // Calculate normalized coordinates for THREE.js (-1 to 1)
+    private updatePosition(clientX: number, clientY: number): void {
         if (this.containerElement) {
             const rect = this.containerElement.getBoundingClientRect();
             this.normalizedMouse.x =
-                ((event.clientX - rect.left) / rect.width) * 2 - 1;
+                ((clientX - rect.left) / rect.width) * 2 - 1;
             this.normalizedMouse.y =
-                -((event.clientY - rect.top) / rect.height) * 2 + 1;
+                -((clientY - rect.top) / rect.height) * 2 + 1;
         }
+    }
+
+    public pointermove = (event: PointerEvent): void => {
+        this.updatePosition(event.clientX, event.clientY);
     };
 
-    public mousedown = (event: MouseEvent): void => {
+    public pointerdown = (event: PointerEvent): void => {
         this.isMouseDown = true;
+        this.updatePosition(event.clientX, event.clientY);
     };
 
-    public mouseup = (event: MouseEvent): void => {
+    public pointerup = (event: PointerEvent): void => {
         this.isMouseDown = false;
     };
 

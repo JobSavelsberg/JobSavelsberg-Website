@@ -3,7 +3,10 @@
     import { onMount } from "svelte";
     import { themeStore, isDark } from "../stores/themeStore";
 
+    let mounted = false;
+
     onMount(() => {
+        mounted = true;
         themeStore.init(); // run only in browser
     });
 
@@ -12,108 +15,113 @@
     }
 </script>
 
-<button
-    class="theme-toggle relative flex cursor-pointer items-center
+{#if !mounted}
+    <!-- Show a placeholder to not trip up the layout containing this component-->
+    <div class="h-[30px] w-[30px] rounded-full"></div>
+{:else}
+    <button
+        class="theme-toggle relative flex cursor-pointer items-center
            justify-center overflow-hidden rounded-xl border-0
            bg-transparent"
-    aria-label="Toggle theme"
-    on:click={toggleTheme}
->
-    <div class="relative h-[30px] w-[30px] overflow-hidden rounded">
-        <div
-            class="rotating-disc animate absolute top-0 -left-4 h-[60px] w-[60px]"
-            class:light={!$isDark}
-            class:dark={$isDark}
-        >
-            <!-- Sun icon -->
-            <svg
-                class="theme-icon absolute text-current"
-                style="left: 20px; top: 35px;"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
+        aria-label="Toggle theme"
+        on:click={toggleTheme}
+    >
+        <div class="relative h-[30px] w-[30px] overflow-hidden rounded">
+            <div
+                class="rotating-disc animate absolute top-0 -left-4 h-[60px] w-[60px]"
+                class:light={!$isDark}
+                class:dark={$isDark}
             >
-                <circle
-                    cx="12"
-                    cy="12"
-                    r="6"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    fill="none"
-                ></circle>
-                <path
-                    d="m12 0.5 0 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m12 22 0 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m3.5 3.5 1.5 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m19 19 1.5 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m0.5 12 1.5 0"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m22 12 1.5 0"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m5 19-1.5 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-                <path
-                    d="m20.5 3.5-1.5 1.5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                ></path>
-            </svg>
-
-            <!-- Moon icon -->
-            <svg
-                class="theme-icon absolute text-current"
-                style="left: 20px; top: 4px;"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-            >
-                <path
-                    d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    fill="none"
+                <!-- Sun icon -->
+                <svg
+                    class="theme-icon absolute text-current"
+                    style="left: 20px; top: 35px;"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
                 >
-                </path>
-            </svg>
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="6"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                    ></circle>
+                    <path
+                        d="m12 0.5 0 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m12 22 0 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m3.5 3.5 1.5 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m19 19 1.5 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m0.5 12 1.5 0"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m22 12 1.5 0"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m5 19-1.5 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                    <path
+                        d="m20.5 3.5-1.5 1.5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                    ></path>
+                </svg>
+
+                <!-- Moon icon -->
+                <svg
+                    class="theme-icon absolute text-current"
+                    style="left: 20px; top: 4px;"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M21 12.79A10 10 0 1 1 10.21 3 7 7 0 0 0 21 12.79z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        fill="none"
+                    >
+                    </path>
+                </svg>
+            </div>
         </div>
-    </div>
-</button>
+    </button>
+{/if}
 
 <style>
     .theme-toggle {

@@ -89,6 +89,9 @@ export class Toy {
         );
         const intersects = this.raycaster.intersectObjects([this.cube]);
 
+        // Update cursor based on whether we're hovering over clickable objects
+        this.interaction.setCursor(intersects.length > 0);
+
         if (intersects.length > 0) {
             if (this.interaction.didMouseClick) {
                 this.audio.playPluck();

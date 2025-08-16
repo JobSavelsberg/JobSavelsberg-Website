@@ -30,7 +30,7 @@
         on:keyup={toy?.interaction.keyup}
         role="button"
         tabindex="0"
-        class="h-64 w-full cursor-pointer"
+        class="h-64 w-full"
         aria-label="Interactive 3D audio visualizer. Use mouse to interact, spacebar for animations."
     ></div>
 </div>

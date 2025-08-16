@@ -16,6 +16,14 @@ export class Interaction {
         this.containerElement = container;
     }
 
+    public setCursor(isPointer: boolean): void {
+        if (this.containerElement) {
+            this.containerElement.style.cursor = isPointer
+                ? "pointer"
+                : "default";
+        }
+    }
+
     public keydown = (event: KeyboardEvent): void => {
         console.log("Key down event:", event.key);
     };

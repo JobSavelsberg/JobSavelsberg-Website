@@ -1,6 +1,7 @@
 import { Interaction } from "./interaction";
 import * as THREE from "three";
 import { Audio } from "./audio";
+import { Cube } from "./cube";
 
 export class Toy {
     public interaction: Interaction;
@@ -15,7 +16,7 @@ export class Toy {
     private containerElement: HTMLDivElement;
 
     // Scene objects
-    private cube: THREE.Mesh;
+    private cube: Cube;
 
     constructor(container: HTMLDivElement) {
         this.containerElement = container;
@@ -61,14 +62,9 @@ export class Toy {
         const ambientLight = new THREE.AmbientLight("#fff", 0.1);
         this.scene.add(ambientLight);
 
-        // Create cube with light-responsive material
-        const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-        const cubeMaterial = new THREE.MeshLambertMaterial({
-            color: THREE.Color.NAMES.white,
-        });
-        this.cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        this.cube.position.set(0, 0, 0);
-        this.scene.add(this.cube);
+        // Create cube
+        this.cube = new Cube();
+        this.scene.add(this.cube.mesh);
     }
 
     public render() {
@@ -89,19 +85,23 @@ export class Toy {
             this.interaction.normalizedMouse,
             this.camera
         );
-        const intersects = this.raycaster.intersectObjects([this.cube]);
+        const intersects = this.raycaster.intersectObjects([this.cube.mesh]);
 
         // Update cursor based on whether we're hovering over clickable objects
         this.interaction.setCursor(intersects.length > 0);
 
+        // Update cube hover state
+        this.cube.setHoverState(intersects.length > 0);
+
         if (intersects.length > 0) {
             if (this.interaction.didMouseClick) {
                 this.audio.playPluck();
+                this.cube.flash();
             }
         }
 
-        this.cube.rotation.x += 0.01;
-        this.cube.rotation.y += 0.01;
+        // Update cube (handles flashing, color, and rotation)
+        this.cube.update();
     }
 
     public handleResize(): void {
@@ -127,6 +127,7 @@ export class Toy {
         if (this.animationId) {
             cancelAnimationFrame(this.animationId);
         }
+        this.cube.dispose();
         this.renderer.dispose();
         this.scene.clear();
         this.camera = null as any;

@@ -9,13 +9,17 @@
         toy = new Toy(container);
         toy.render();
 
-        // window.addEventListener("resize", handleResize);
+        const handleResize = () => {
+            toy?.handleResize();
+        };
+
+        window.addEventListener("resize", handleResize);
 
         return () => {
             if (toy) {
                 toy.dispose();
             }
-            // window.removeEventListener("resize", handleResize);
+            window.removeEventListener("resize", handleResize);
         };
     });
 </script>

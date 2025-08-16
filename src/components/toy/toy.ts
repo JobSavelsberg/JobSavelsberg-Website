@@ -12,11 +12,13 @@ export class Toy {
     public scene: THREE.Scene;
 
     public raycaster: THREE.Raycaster;
+    private containerElement: HTMLDivElement;
 
     // Scene objects
     private cube: THREE.Mesh;
 
     constructor(container: HTMLDivElement) {
+        this.containerElement = container;
         this.interaction = new Interaction(container);
         this.audio = new Audio();
         this.audio.init();
@@ -100,6 +102,25 @@ export class Toy {
 
         this.cube.rotation.x += 0.01;
         this.cube.rotation.y += 0.01;
+    }
+
+    public handleResize(): void {
+        if (!this.containerElement || !this.renderer || !this.camera) return;
+
+        const width = this.containerElement.clientWidth;
+        const height = this.containerElement.clientHeight;
+        const aspect = width / height;
+
+        // Update camera
+        this.camera.left = -aspect;
+        this.camera.right = aspect;
+        this.camera.top = 1;
+        this.camera.bottom = -1;
+        this.camera.updateProjectionMatrix();
+
+        // Update renderer
+        this.renderer.setSize(width, height);
+        this.renderer.setPixelRatio(window.devicePixelRatio);
     }
 
     public dispose() {

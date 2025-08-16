@@ -1,33 +1,15 @@
 <!-- ThemeToggle Svelte component with interactive theme switching -->
 <script lang="ts">
     import { onMount } from "svelte";
-    import { themeStore, THEMES } from "../stores/theme";
-
-    let mounted = false;
-    let shouldAnimate = false;
-
-    // Use the store for reactivity
-    $: theme = $themeStore;
-    $: isDark = theme === THEMES.DARK;
-
-    function toggleTheme() {
-        if (typeof document === "undefined") return;
-        const html = document.documentElement;
-        const newTheme = isDark ? THEMES.LIGHT : THEMES.DARK;
-        html.classList.toggle(THEMES.DARK, newTheme === THEMES.DARK);
-        localStorage.setItem("theme", newTheme);
-        // themeStore will auto-update via MutationObserver
-    }
+    import { themeStore, isDark } from "../stores/themeStore";
 
     onMount(() => {
-        // Initialize the theme store (sets up observer)
-        themeStore.init();
-        mounted = true;
-        // Enable animation after mount to prevent initial rotation
-        requestAnimationFrame(() => {
-            shouldAnimate = true;
-        });
+        themeStore.init(); // run only in browser
     });
+
+    function toggleTheme() {
+        themeStore.toggle();
+    }
 </script>
 
 <button
@@ -39,10 +21,9 @@
 >
     <div class="relative h-[30px] w-[30px] overflow-hidden rounded">
         <div
-            class="rotating-disc absolute top-0 -left-4 h-[60px] w-[60px]"
-            class:light={!isDark && mounted}
-            class:dark={isDark && mounted}
-            class:animate={shouldAnimate}
+            class="rotating-disc animate absolute top-0 -left-4 h-[60px] w-[60px]"
+            class:light={!$isDark}
+            class:dark={$isDark}
         >
             <!-- Sun icon -->
             <svg

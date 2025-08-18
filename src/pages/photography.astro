@@ -3,69 +3,67 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout>
-    <main class="pt-8">
-        <section>
-            <p>I love capturing scenes I come across while traveling.</p>
-            <p>
-                View more of my photography on
-                <a
-                    href="https://unsplash.com/@jobsavelsberg"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="external-link ml-1 inline-flex items-center gap-1"
+    <section>
+        <p>I love capturing scenes I come across while traveling.</p>
+        <p>
+            View more of my photography on
+            <a
+                href="https://unsplash.com/@jobsavelsberg"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="external-link ml-1 inline-flex items-center gap-1"
+            >
+                <svg
+                    viewBox="0 0 32 32"
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-[0.8em] w-[0.8em] fill-current"
                 >
-                    <svg
-                        viewBox="0 0 32 32"
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-[0.8em] w-[0.8em] fill-current"
-                    >
-                        <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"
-                        ></path>
-                    </svg>
-                    <span class="align-middle">Unsplash</span>
-                </a>.
-            </p>
-            <div class="photo-showcase">
-                <img
-                    src="https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=1200&auto=format&fit=crop&q=80"
-                    srcset="https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=800&auto=format&fit=crop&q=80 800w,
+                    <path d="M10 9V0h12v9H10zm12 5h10v18H0V14h10v9h12v-9z"
+                    ></path>
+                </svg>
+                <span class="align-middle">Unsplash</span>
+            </a>.
+        </p>
+        <div class="photo-showcase">
+            <img
+                src="https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=1200&auto=format&fit=crop&q=80"
+                srcset="https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=800&auto=format&fit=crop&q=80 800w,
                                 https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=1200&auto=format&fit=crop&q=80 1200w,
                                 https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=1600&auto=format&fit=crop&q=80 1600w,
                                 https://images.unsplash.com/photo-1699306113718-72fe0f9dfb2c?w=2400&auto=format&fit=crop&q=80 2400w"
-                    sizes="100vw"
-                    alt="A desolate but colourful landscape near Grímsstaðir, Iceland"
-                    style="width: 100%; height: auto;"
-                    loading="lazy"
-                />
-            </div>
-            <div class="photo-showcase">
-                <img
-                    src="https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=1200&auto=format&fit=crop&q=80"
-                    srcset="https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=800&auto=format&fit=crop&q=80 800w,
+                sizes="100vw"
+                alt="A desolate but colourful landscape near Grímsstaðir, Iceland"
+                style="width: 100%; height: auto;"
+                loading="lazy"
+            />
+        </div>
+        <div class="photo-showcase">
+            <img
+                src="https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=1200&auto=format&fit=crop&q=80"
+                srcset="https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=800&auto=format&fit=crop&q=80 800w,
                         https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=1200&auto=format&fit=crop&q=80 1200w,
                         https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=1600&auto=format&fit=crop&q=80 1600w,
                         https://images.unsplash.com/photo-1707419710020-393f12ce7ef8?w=2400&auto=format&fit=crop&q=80 2400w"
-                    sizes="100vw"
-                    alt="A view of the Borgarnes mountains from a green field in Iceland"
-                    style="width: 100%; height: auto;"
-                    loading="lazy"
-                />
-            </div>
-            <div class="photo-showcase">
-                <img
-                    src="https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=1200&auto=format&fit=crop&q=80"
-                    srcset="https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=800&auto=format&fit=crop&q=80 800w,
+                sizes="100vw"
+                alt="A view of the Borgarnes mountains from a green field in Iceland"
+                style="width: 100%; height: auto;"
+                loading="lazy"
+            />
+        </div>
+        <div class="photo-showcase">
+            <img
+                src="https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=1200&auto=format&fit=crop&q=80"
+                srcset="https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=800&auto=format&fit=crop&q=80 800w,
                         https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=1200&auto=format&fit=crop&q=80 1200w,
                         https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=1600&auto=format&fit=crop&q=80 1600w,
                         https://images.unsplash.com/photo-1699391618617-e70493b6cd9e?w=2400&auto=format&fit=crop&q=80 2400w"
-                    sizes="100vw"
-                    alt="A winding road seen across the Myvatn Geothermal Area, Iceland"
-                    style="width: 100%; height: auto;"
-                    loading="lazy"
-                />
-            </div>
-        </section>
-    </main>
+                sizes="100vw"
+                alt="A winding road seen across the Myvatn Geothermal Area, Iceland"
+                style="width: 100%; height: auto;"
+                loading="lazy"
+            />
+        </div>
+    </section>
 </Layout>
 
 <style>
@@ -76,6 +74,5 @@ import Layout from "../layouts/Layout.astro";
 
     .photo-showcase img {
         display: block;
-        transition: transform 0.3s ease;
     }
 </style>

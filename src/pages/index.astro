@@ -22,19 +22,16 @@ const age = fullYearsBetween(birthday, now);
 ---
 
 <Layout>
-    <main class="pt-8">
-        <section>
-            <p>
-                Hi, I'm Job Savelsberg, {age} years old, living in the Netherlands.
-            </p>
-            <p>
-                I'm a software engineer with a passion for creating things.
-                Apart from software, I especially enjoy making music and
-                photography.
-            </p>
-            <p>Take a look around to see what I've been up to!</p>
+    <section>
+        <p>
+            Hi, I'm Job Savelsberg, {age} years old, living in the Netherlands.
+        </p>
+        <p>
+            I'm a software engineer with a passion for creating things. Apart
+            from software, I especially enjoy making music and photography.
+        </p>
+        <p>Take a look around to see what I've been up to!</p>
 
-            <div class="my-5"><Toy client:idle /></div>
-        </section>
-    </main>
+        <div class="my-5"><Toy client:idle /></div>
+    </section>
 </Layout>

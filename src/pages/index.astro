@@ -1,6 +1,6 @@
 ---
+import Hedrite from "../../libs/hedrite-web/src/Hedrite.svelte";
 import Layout from "../layouts/Layout.astro";
-import Toy from "../components/toy/Toy.svelte";
 
 const birthday = new Date("1997-03-09");
 const now = new Date();
@@ -22,7 +22,7 @@ const age = fullYearsBetween(birthday, now);
 ---
 
 <Layout>
-    <section>
+    <section class="intro">
         <p>
             Hi, I'm Job Savelsberg, {age} years old, living in the Netherlands.
         </p>
@@ -30,8 +30,29 @@ const age = fullYearsBetween(birthday, now);
             I'm a software engineer with a passion for creating things. Apart
             from software, I especially enjoy making music and photography.
         </p>
-        <p>Take a look around to see what I've been up to!</p>
-
-        <div class="my-5"><Toy client:idle /></div>
     </section>
+    <div class="hedrite-wrapper" tabindex="0">
+        <Hedrite client:idle="svelte" />
+    </div>
 </Layout>
+
+<style>
+    .intro {
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .intro:has(+ .hedrite-wrapper:focus-within) {
+        opacity: 0;
+    }
+
+    .hedrite-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -10;
+        width: 100vw;
+        height: 100vh;
+    }
+</style>

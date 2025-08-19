@@ -1,0 +1,3 @@
+[submodule "libs/hedrite-web"]
+	path = libs/hedrite-web
+	url = https://github.com/JobSavelsberg/hedrite-web.git

@@ -17,6 +17,17 @@
 </script>
 
 <section class="flex flex-col items-center justify-center gap-8">
+    <!-- Backup link: https://www.youtube.com/watch?v=qzlN7elbsS8 -->
+    <iframe
+        width="100%"
+        height="315"
+        src="https://www.youtube.com/embed/InE-YK4d6_o"
+        title="YouTube video player"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+        style="border-radius:10px;"
+    ></iframe>
     <iframe
         allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
         height="175"

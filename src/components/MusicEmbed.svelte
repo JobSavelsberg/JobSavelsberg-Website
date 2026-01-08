@@ -6,13 +6,13 @@
     const albumsrc = derived(
         themeStore,
         theme =>
-            `https://embed.music.apple.com/us/album/all-that-happened-in-the-meantime/1511908765?theme=${theme}`
+            `https://embed.music.apple.com/us/album/all-that-happened-in-the-meantime/1844199632?theme=${theme}`
     );
 
     const songsrc = derived(
         themeStore,
         theme =>
-            `https://embed.music.apple.com/us/song/partial-eclipse/1784744158?theme=${theme}`
+            `https://embed.music.apple.com/us/song/partial-eclipse/1844486151?theme=${theme}`
     );
 </script>
 

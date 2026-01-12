@@ -1,0 +1,253 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TriggerSend from "../assets/trigger/TriggerSend.png";
+import TriggerReceive from "../assets/trigger/TriggerReceive.png";
+import { Image } from "astro:assets";
+---
+
+<Layout>
+    <article>
+        <header class="mb-10 text-center">
+            <h1 class="mb-3 text-5xl font-bold">Trigger</h1>
+            <p class="text-xl text-neutral-600 dark:text-neutral-400">
+                Turn any audio signal into MIDI notes with velocity
+            </p>
+        </header>
+
+        <!-- Video Section -->
+        <div class="mb-12">
+            <div
+                style="padding:56.25% 0 0 0;position:relative;"
+                class="overflow-hidden rounded-lg"
+            >
+                <iframe
+                    src="https://player.vimeo.com/video/1152341270?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    title="Trigger - Job Savelsberg"></iframe>
+            </div>
+            <script src="https://player.vimeo.com/api/player.js"></script>
+        </div>
+
+        <!-- Download Section -->
+        <div class="mb-16 text-center">
+            <a
+                href="/downloads/Trigger.zip"
+                download
+                class="inline-block rounded-lg bg-neutral-900 px-10 py-4 text-lg font-semibold text-neutral-100 shadow-lg transition-all hover:scale-105 hover:bg-neutral-700 dark:bg-neutral-100 dark:text-neutral-900 dark:hover:bg-neutral-300"
+            >
+                Download Trigger (Free)
+            </a>
+        </div>
+
+        <!-- Description -->
+        <section class="mb-16">
+            <p class="mb-4 text-center text-lg leading-relaxed">
+                These two Ableton devices let you turn any audio signal (drums,
+                clicks, contact mic input, modular, etc.) into MIDI notes with
+                velocity.
+            </p>
+            <p
+                class="text-center text-lg leading-relaxed text-neutral-700 dark:text-neutral-300"
+            >
+                For example, hook up a contact mic anywhere on your drum kit,
+                and use that to play a Drum Rack in Ableton Live.
+            </p>
+        </section>
+
+        <!-- Devices -->
+        <section class="mb-12">
+            <h2 class="mb-8 text-3xl font-bold">The Devices</h2>
+
+            <div class="grid gap-6 md:grid-cols-2">
+                <!-- Trigger Send -->
+                <div class="rounded-lg bg-neutral-100 p-6 dark:bg-neutral-800">
+                    <h3 class="mb-4 text-2xl font-semibold">Trigger Send</h3>
+                    <div class="mb-4 flex justify-center">
+                        <Image
+                            src={TriggerSend}
+                            alt="Trigger Send device interface"
+                            class="rounded"
+                            style="max-height:160px; width: auto; height: auto;"
+                        />
+                    </div>
+                    <p class="mb-4 text-neutral-700 dark:text-neutral-300">
+                        Put this on an audio track. It analyzes the incoming
+                        audio and sends trigger data whenever a transient
+                        crosses a threshold.
+                    </p>
+                    <div>
+                        <h4 class="mb-2 font-semibold">Controls:</h4>
+                        <ul
+                            class="list-inside list-disc space-y-1 text-neutral-700 dark:text-neutral-300"
+                        >
+                            <li>
+                                <strong>Threshold</strong> – How loud the sound must
+                                be to trigger
+                            </li>
+                            <li>
+                                <strong>Max</strong> – Sets the loudest expected hit
+                                (for velocity scaling)
+                            </li>
+                            <li>
+                                <strong>Min / Range</strong> – Fine-tune detection
+                                sensitivity
+                            </li>
+                            <li>
+                                <strong>Channel</strong> – Selects which Trigger Receive
+                                it talks to
+                            </li>
+                            <li>
+                                <strong>Calibrate</strong> – Automatically sets good
+                                Threshold / Max values
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Trigger Receive -->
+                <div class="rounded-lg bg-neutral-100 p-6 dark:bg-neutral-800">
+                    <h3 class="mb-4 text-2xl font-semibold">Trigger Receive</h3>
+                    <div class="mb-4 flex justify-center">
+                        <Image
+                            src={TriggerReceive}
+                            alt="Trigger Receive device interface"
+                            class="rounded"
+                            style="max-height: 160px; width: auto; height: auto;"
+                        />
+                    </div>
+                    <p class="mb-4 text-neutral-700 dark:text-neutral-300">
+                        Put this on a MIDI track. It receives triggers and
+                        outputs MIDI notes.
+                    </p>
+                    <div>
+                        <h4 class="mb-2 font-semibold">Controls:</h4>
+                        <ul
+                            class="list-inside list-disc space-y-1 text-neutral-700 dark:text-neutral-300"
+                        >
+                            <li>
+                                <strong>Channel</strong> – Must match the Trigger
+                                Send
+                            </li>
+                            <li>
+                                <strong>Note</strong> – Which MIDI note to output
+                                (e.g. C1 for kick, D1 for snare)
+                            </li>
+                        </ul>
+                        <p class="mt-3 text-neutral-700 dark:text-neutral-300">
+                            Connect this to any Drum Rack, sampler, or synth.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Setup -->
+        <section class="mb-12">
+            <h2 class="mb-6 text-3xl font-bold">Quick Setup</h2>
+            <ol
+                class="list-inside list-decimal space-y-2 text-lg text-neutral-700 dark:text-neutral-300"
+            >
+                <li>Put Trigger Send on your audio track</li>
+                <li>Calibrate Trigger Send (optional but recommended)</li>
+                <li>Put Trigger Receive on a MIDI track</li>
+                <li>Set both to the same Channel (A, B, C…)</li>
+                <li>Choose a Note in Trigger Receive</li>
+                <li>Route that MIDI track into a Drum Rack or instrument</li>
+            </ol>
+            <p class="mt-4 text-lg font-semibold">
+                That's it. Your audio now plays your instruments.
+            </p>
+        </section>
+
+        <!-- Calibration Guide -->
+        <section class="mb-12">
+            <h2 class="mb-6 text-3xl font-bold">Calibration Guide</h2>
+            <p class="mb-6 text-neutral-700 dark:text-neutral-300">
+                Proper calibration ensures reliable triggering and prevents
+                false positives or interference between multiple triggers. This
+                ensures the full velocity range (0-127) maps correctly to your
+                playing dynamics.
+            </p>
+
+            <div class="space-y-6">
+                <div>
+                    <h3 class="mb-3 text-xl font-semibold">
+                        Setting the Threshold
+                    </h3>
+                    <p class="mb-3 text-neutral-700 dark:text-neutral-300">
+                        The <strong>Threshold</strong> filters out background noise
+                        and unwanted vibrations.
+                    </p>
+                    <div class="rounded bg-neutral-100 p-4 dark:bg-neutral-800">
+                        <p class="mb-2 font-semibold">
+                            Best practice when using multiple triggers:
+                        </p>
+                        <ol
+                            class="list-inside list-decimal space-y-1 text-neutral-700 dark:text-neutral-300"
+                        >
+                            <li>
+                                Click the Calibrate button to enable threshold
+                                calibration mode
+                            </li>
+                            <li>
+                                Play all <strong>other</strong> triggers at their
+                                loudest (not the one you're calibrating)
+                            </li>
+                            <li>
+                                Click Calibrate again to lock in the threshold
+                            </li>
+                        </ol>
+                        <p
+                            class="mt-3 text-sm text-neutral-600 dark:text-neutral-400"
+                        >
+                            This ensures other triggers won't cause false
+                            positives on this one.
+                        </p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="mb-3 text-xl font-semibold">Setting the Max</h3>
+                    <p class="mb-3 text-neutral-700 dark:text-neutral-300">
+                        The <strong>Max</strong> value sets the loudest expected hit
+                        for accurate velocity scaling.
+                    </p>
+                    <div class="rounded bg-neutral-100 p-4 dark:bg-neutral-800">
+                        <p class="mb-2 font-semibold">To calibrate:</p>
+                        <ol
+                            class="list-inside list-decimal space-y-1 text-neutral-700 dark:text-neutral-300"
+                        >
+                            <li>
+                                Click the Calibrate button to enable max
+                                calibration mode
+                            </li>
+                            <li>
+                                Hit <strong>this</strong> trigger at the absolute
+                                loudest you'll ever play it
+                            </li>
+                            <li>
+                                Click Calibrate again to lock in the max value
+                            </li>
+                        </ol>
+                        <p
+                            class="mt-3 text-sm text-neutral-600 dark:text-neutral-400"
+                        >
+                            The device will learn the peak level and map it to
+                            MIDI velocity 127, giving you full dynamic range.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer
+            class="border-t border-neutral-300 pt-8 text-center text-neutral-600 dark:border-neutral-700 dark:text-neutral-400"
+        >
+            <p>Made by Job Savelsberg</p>
+        </footer>
+    </article>
+</Layout>
